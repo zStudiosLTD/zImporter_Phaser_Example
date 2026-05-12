@@ -39,7 +39,30 @@
 </head>
 
 <body>
+    <select id="game-selector" onchange="navigateTo(this.value)">
+        <option value="./assets/robot/">robot</option>
+        <option value="./assets/wildWest/">wildWest</option>
+    </select>
+    <script>
+        (function () {
+            var path = new URLSearchParams(window.location.search).get('path');
+            var defaultPath = './assets/robot/';
+            
+            if (path) {
+                document.getElementById('game-selector').value = path;
+            } else {
+                // Set default selection and navigate to it
+                navigateTo(defaultPath);
+            }
+        })();
 
+        function navigateTo(path) {
+            var url = new URL(window.location.href);
+            url.searchParams.set('path', path);
+            window.location.href = url.toString();
+        }
+
+    </script>
     <div id="game-container"></div>
     <script src="bundle.js"></script>
 
